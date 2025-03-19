@@ -1,0 +1,16 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: team6-card-pod-cha
+containerName: card-contain-cha
+serviceName: team6-card-cha-sv
+appLabel: card-lbl-cha
+# appName: cards
+
+replicaCount: 1
+
+image:
+  repository: group1-team6-cha-card
+
+service:
+  nodePort: 30631

@@ -1,0 +1,12 @@
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8099
+containerPort: 8099
+image:
+  policy: Always
+  tag: latest
+app:
+  server:
+    port: 8099
+  message: "helloworld..."
