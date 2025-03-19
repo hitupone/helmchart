@@ -28,5 +28,5 @@ spec:
             name: {{ .Values.global.configMapName }}
         env:
         - name: UI_MESSAGE
-          value: "{{ .Values.eazybankcommon.app.message }}"
+          value: "{{ .Values.app.message }}"
 {{- end -}}
