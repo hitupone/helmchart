@@ -5,7 +5,6 @@ deploymentName: team3-lsc-cards-deployment
 containerName: team3-lsc-cards-container
 serviceName: team3-lsc-cards-service
 appLabel: team3-lsc-cards-app
-# appName: cards
 
 replicaCount: 1
 

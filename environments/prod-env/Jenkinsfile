@@ -1,14 +1,15 @@
 pipeline {
     agent any
     environment {
-        NAMESPACE = 'group1-team3'
         JAVA_HOME = "/usr/local/java21"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
 
         COMMON_HELM_CHART_PATH="eazybank-common"
         GLOBAL_HELM_CHART_PATH="environments/prod-env"
-        
         HELM_CHART_PATH="environments/prod-env"
+
+        
+        NAMESPACE = 'group1-team3'
         HELM_RELEASE_NAME="team3-lsc-helmchart" //고유 ID (겹치지 않게 생성해야됨)
         
     }

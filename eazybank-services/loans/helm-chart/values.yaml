@@ -13,7 +13,7 @@ image:
 
 
 service:
-  nodePort: 30630
+  nodePort: 30318
 
 eazybankcommon:
   service:
