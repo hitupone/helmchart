@@ -33,9 +33,6 @@ pipeline {
                 sh "helm template ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
                   -f ./${GLOBAL_HELM_CHART_PATH}/values.yaml \
                   -f ./${COMMON_HELM_CHART_PATH}/values.yaml \
-                  --set accounts.enabled=true \
-                  --set loans.enabled=false \
-                  --set cards.enabled=false \
                   --namespace ${NAMESPACE} --debug "
             }
         }
