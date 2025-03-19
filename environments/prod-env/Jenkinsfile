@@ -39,21 +39,21 @@ pipeline {
                  --namespace ${NAMESPACE} --debug "
             }
         }
-        stage('HELM Deploy') {
-            steps {
-                script {
-                        sh "helm upgrade --install ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
-                        --namespace ${NAMESPACE} \
-                        -f ./${GLOBAL_HELM_CHART_PATH}/values.yaml \
-                        -f ./${COMMON_HELM_CHART_PATH}/values.yaml \
-                        --set accounts.enabled=true \
-                        --reset-values \
-                        --wait --timeout 10m0s --force" 
+        // stage('HELM Deploy') {
+        //     steps {
+        //         script {
+        //                 sh "helm upgrade --install ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
+        //                 --namespace ${NAMESPACE} \
+        //                 -f ./${GLOBAL_HELM_CHART_PATH}/values.yaml \
+        //                 -f ./${COMMON_HELM_CHART_PATH}/values.yaml \
+        //                 --set accounts.enabled=true \
+        //                 --reset-values \
+        //                 --wait --timeout 10m0s --force" 
 
-                        sh "kubectl get pods --namespace ${NAMESPACE}"
-                }
-            }
-        }
+        //                 sh "kubectl get pods --namespace ${NAMESPACE}"
+        //         }
+        //     }
+        // }
 
     }
 }
