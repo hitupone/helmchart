@@ -23,9 +23,11 @@ pipeline {
          stage('Helm Dependency Update , Template') {
             steps {
                 //Chart.yaml이 있는 디렉토리에서 실행
-                 ['accounts'].each { service ->
-                         sh "helm dependency update ./eazybank-services/${service}/helm-chart"
-                         sh "helm dependency build ./eazybank-services/${service}/helm-chart"
+                script {
+                    ['accounts'].each { service ->
+                            sh "helm dependency update ./eazybank-services/${service}/helm-chart"
+                            sh "helm dependency build ./eazybank-services/${service}/helm-chart"
+                    }
                 }
 
                 sh "helm dependency update ./${GLOBAL_HELM_CHART_PATH}"
