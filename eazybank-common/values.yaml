@@ -1,11 +1,22 @@
-eacybankcommon:
-  service:
-    type: NodePort
-    port: 80
-    targetPort: 9206
-  containerPort: 9206
-  image:
-    policy: Always
-    tag: latest
-  app:
-    message: "helloworld..."
+# eacybankcommon:
+#   service:
+#     type: NodePort
+#     port: 80
+#     targetPort: 9206
+#   containerPort: 9206
+#   image:
+#     policy: Always
+#     tag: latest
+#   app:
+#     message: "helloworld..."
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 9206
+containerPort: 9206
+image:
+  policy: Always
+  tag: latest
+app:
+  message: "helloworld..."
