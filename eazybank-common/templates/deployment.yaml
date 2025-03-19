@@ -26,7 +26,4 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ .Values.global.configMapName }}
-        # env:
-        # - name: UI_MESSAGE
-        #   value: "{{ .Values.app.message }}"
 {{- end -}}
