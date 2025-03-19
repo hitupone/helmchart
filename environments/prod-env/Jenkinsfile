@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        NAMESPACE = 'group1-team6'
+        NAMESPACE = 'group1-team3'
         JAVA_HOME = "/usr/local/java21"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
 
@@ -9,14 +9,14 @@ pipeline {
         GLOBAL_HELM_CHART_PATH="environments/prod-env"
         
         HELM_CHART_PATH="environments/prod-env"
-        HELM_RELEASE_NAME="team6-cha-first-helm"
+        HELM_RELEASE_NAME="team3-lsc-helmchart" //고유 ID (겹치지 않게 생성해야됨)
         
     }
     stages {
         stage('Checkout') {
             steps {
                 // Git 저장소에서 소스 코드 체크아웃 (branch 지정 : 본인 repository의 branch 이름으로 설정)
-                git branch: 'main', url: 'https://github.com/chayeonhee/helmchart.git'
+                git branch: 'main', url: 'https://github.com/chayeonhee/team3_helmchart.git'
             }
         }
         
@@ -33,122 +33,14 @@ pipeline {
                  --namespace ${NAMESPACE} --debug "
             }
         }
-        stage(' Eureka HELM Deploy') {
+        stage('HELM Deploy') {
             steps {
                 script {
                         sh "helm upgrade --install ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
                         --namespace ${NAMESPACE} \
                         -f ./${GLOBAL_HELM_CHART_PATH}/values.yaml \
                         -f ./${COMMON_HELM_CHART_PATH}/values.yaml \
-                        --set eurekaserver.enabled=true \
-                        --reset-values \
-                        --wait --timeout 10m0s --force" 
-                        sh "helm get values team6-cha-first-helm -n group1-team6"
-                        sh "kubectl get pods --namespace ${NAMESPACE}"
-                }
-            }
-        }
-
-        stage('Wait for Eureka Ready') {
-            steps {
-                script {
-                    sleep 10
-                    // def eurekaPodName = sh(script: "kubectl get pods -n ${NAMESPACE} | grep team6-eureka-pod-cha | awk '{print \$1}'", returnStdout: true).trim()
-                    // echo "Eureka Pod name: ${eurekaPodName}"
-                    
-                    // // Eureka 로그가 "Eureka server is up"을 출력할 때까지 대기
-                    // def isReady = false
-                    // def counter = 0
-                    // def maxRetries = 6  // 최대 분 (12 * 10초)
-                    
-                    // // Eureka 로그에서 "Eureka server is up" 문자열이 나올 때까지 기다림
-                    // while (!isReady && counter < maxRetries) {
-                    //     // Eureka 로그 확인
-                    //     def logs = sh(script: "kubectl logs -n ${NAMESPACE} ${eurekaPodName}", returnStdout: true).trim()
-                        
-                    //     // 로그에 'Completed initialization'이 포함되어 있는지 확인
-                    //     if (logs.contains("Started ServerApplication")) {
-                    //         isReady = true
-                    //         echo "Eureka is ready!"
-                    //     } else {
-                    //         counter++
-                    //         echo "Waiting for Eureka to be ready... Attempt ${counter}/${maxRetries}"
-                    //         sleep(10)  // 10초 대기 후 다시 시도
-                    //     }
-                    // }
-
-                    // // 최대 시도 횟수에 도달하면 실패 처리
-                    // if (!isReady) {
-                    //     error "Eureka server did not become ready in time."
-                    // }
-                }
-            }
-        }
-         stage(' ConfigServer HELM Deploy ') {
-            steps {
-                script {
-                        
-                        sh "helm upgrade --install ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
-                        --namespace ${NAMESPACE} \
-                        -f ./${GLOBAL_HELM_CHART_PATH}/values.yaml \
-                        -f ./${COMMON_HELM_CHART_PATH}/values.yaml \
-                        --set eurekaserver.enabled=true \
-                        --set configserver.enabled=true \
-                        --reset-values \
-                        --wait --timeout 10m0s --force" 
-                        sh "helm get values team6-cha-first-helm -n group1-team6"
-                        sh "kubectl get pods --namespace ${NAMESPACE}"
-                }
-            }
-        }
-          stage('Wait for ConfigServer Ready') {
-            steps {
-                script {
-                    sleep 10
-                    // def configPodName = sh(script: "kubectl get pods -n ${NAMESPACE} | grep team6-cfg-pod-cha | awk '{print \$1}'", returnStdout: true).trim()
-                    // echo "Config Pod name: ${configPodName}"
-                    
-                    // // Eureka 로그가 "Eureka server is up"을 출력할 때까지 대기
-                    // def isReady = false
-                    // def counter = 0
-                    // def maxRetries = 6  // 최대 분 (12 * 10초)
-                    
-                    // // Eureka 로그에서 "Eureka server is up" 문자열이 나올 때까지 기다림
-                    // while (!isReady && counter < maxRetries) {
-                    //     // Eureka 로그 확인
-                    //     def logs = sh(script: "kubectl logs -n ${NAMESPACE} ${configPodName}", returnStdout: true).trim()
-                        
-                    //     // 로그에 'Completed initialization'이 포함되어 있는지 확인
-                    //     if (logs.contains("Completed initialization")) {
-                    //         isReady = true
-                    //         echo "Config is ready!"
-                    //     } else {
-                    //         counter++
-                    //         echo "Waiting for Config to be ready... Attempt ${counter}/${maxRetries}"
-                    //         sleep(10)  // 10초 대기 후 다시 시도
-                    //     }
-                    // }
-
-                    // // 최대 시도 횟수에 도달하면 실패 처리
-                    // if (!isReady) {
-                    //     error "Config server did not become ready in time."
-                    // }
-                }
-            }
-        }
-         stage(' Service HELM Deploy ') {
-            steps {
-                script {
-                        sh "helm upgrade --install ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
-                        --namespace ${NAMESPACE} \
-                        -f ./${GLOBAL_HELM_CHART_PATH}/values.yaml \
-                        -f ./${COMMON_HELM_CHART_PATH}/values.yaml \
-                        --set eurekaserver.enabled=true \
-                        --set configserver.enabled=true \
-                        --set gatewayserver.enabled=true \
                         --set accounts.enabled=true \
-                        --set cards.enabled=true \
-                        --set loans.enabled=true \
                         --reset-values \
                         --wait --timeout 10m0s --force" 
 
@@ -156,5 +48,6 @@ pipeline {
                 }
             }
         }
+
     }
 }
