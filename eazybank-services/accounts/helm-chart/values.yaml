@@ -17,8 +17,9 @@ service:
 
 eazybankcommon:
   service:
-    targetPort: 9206
-  containerPort: 9206
+    # targetPort: 9206
+    targetPort: 8099
+  containerPort: 8099
   image:
     tag: latest
     # tag: v0.0.2
