@@ -8,7 +8,5 @@ metadata:
     "helm.sh/resource-policy": "keep"
 data:
   SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
-  # SPRING_EUREKA_URL: {{ .Values.global.eurekaServerURL }}
-  # SPRING_CONFIG_URL: {{ .Values.global.configServerURL }}
 {{- end -}}
 {{- end -}}
