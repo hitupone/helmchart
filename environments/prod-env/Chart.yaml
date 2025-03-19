@@ -33,11 +33,11 @@ dependencies:
     version: 0.1.0
     repository: file://../../eazybank-services/accounts/helm-chart
 
-  - name: cards
-    version: 0.1.0
-    repository: file://../../eazybank-services/cards/helm-chart
+  # - name: cards
+  #   version: 0.1.0
+  #   repository: file://../../eazybank-services/cards/helm-chart
 
-  - name: loans
-    version: 0.1.0
-    repository: file://../../eazybank-services/loans/helm-chart
+  # - name: loans
+  #   version: 0.1.0
+  #   repository: file://../../eazybank-services/loans/helm-chart
       

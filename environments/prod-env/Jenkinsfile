@@ -8,7 +8,7 @@ pipeline {
         GLOBAL_HELM_CHART_PATH="environments/prod-env"
         HELM_CHART_PATH="environments/prod-env"
 
-        
+
         NAMESPACE = 'group1-team3'
         HELM_RELEASE_NAME="team3-lsc-helmchart" //고유 ID (겹치지 않게 생성해야됨)
         
@@ -25,7 +25,8 @@ pipeline {
             steps {
                 //Chart.yaml이 있는 디렉토리에서 실행
                 script {
-                    ['accounts','cards','loans'].each { service ->
+                    // ['accounts','cards','loans'].each { service ->
+                    ['accounts'].each { service ->
                             sh "helm dependency update ./eazybank-services/${service}/helm-chart"
                             sh "helm dependency build ./eazybank-services/${service}/helm-chart"
                     }
