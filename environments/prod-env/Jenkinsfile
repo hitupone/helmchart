@@ -33,8 +33,8 @@ pipeline {
                 sh "helm template ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
                   -f ./${GLOBAL_HELM_CHART_PATH}/values.yaml \
                   -f ./${COMMON_HELM_CHART_PATH}/values.yaml \
-                  --set accounts.enabled=true \                  
-                 --namespace ${NAMESPACE} --debug "
+                  --set accounts.enabled=true \
+                  --namespace ${NAMESPACE} --debug "
             }
         }
         // stage('HELM Deploy') {
