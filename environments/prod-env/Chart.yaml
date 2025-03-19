@@ -32,6 +32,9 @@ dependencies:
   - name: accounts
     version: 0.1.0
     repository: file://../../eazybank-services/accounts/helm-chart
+    dependencies:
+      - name: eazybankcommon
+        version: 0.1.0
     # condition: accounts.enabled
 
   # - name: cards
