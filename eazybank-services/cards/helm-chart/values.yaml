@@ -12,7 +12,7 @@ image:
   repository: group1-team3-lsc-cards
 
 service:
-  nodePort: 30317
+  nodePort: 30217
 
 
 eazybankcommon:
